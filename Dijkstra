@@ -1,0 +1,86 @@
+        
+/*
+ بسم الله الرحمن الرحيم
+ 
+ ♥♥♥♥♥  ♥♥           ♥♥♥♥♥  ♥♥♥    ♥♥♥ ♥♥ ♥♥♥    ♥♥ 
+♥♥   ♥♥ ♥♥          ♥♥   ♥♥ ♥♥♥♥  ♥♥♥♥ ♥♥ ♥♥♥♥   ♥♥ 
+♥♥♥♥♥♥♥ ♥♥   ♥♥♥♥   ♥♥♥♥♥♥♥ ♥♥ ♥♥♥♥ ♥♥ ♥♥ ♥♥ ♥♥  ♥♥ 
+♥♥   ♥♥ ♥♥          ♥♥   ♥♥ ♥♥  ♥♥  ♥♥ ♥♥ ♥♥  ♥♥ ♥♥ 
+♥♥   ♥♥ ♥♥♥♥♥♥♥     ♥♥   ♥♥ ♥♥      ♥♥ ♥♥ ♥♥   ♥♥♥♥ 
+*/   
+#include <bits/stdc++.h>
+using namespace std;
+#define TC int t; cin>>t;while(t--)
+#define fast ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define ll long long int
+#define nl '\n'
+#define all(x) (x).begin(),(x).end()
+#define pb push_back
+#define ff first 
+#define ss second 
+#define debug(x) cout<<#x<<" "<<x<<nl;
+const ll sz=2e5+7,Inf=1e9+7;
+ll dist[sz];
+vector<pair<int,int>>adj[sz];
+void diijkstra(int source,int node){
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pr;
+    for(int i=0;i<node;i++){
+        dist[i]=Inf;
+    }
+    dist[source]=0;
+    pr.push({0,source});
+    while(!pr.empty())
+    {
+        int u = pr.top().second;
+        int curDist = pr.top().first;
+        pr.pop();
+        if(dist[u]<curDist)continue;
+        else{
+            for(auto it:adj[u])
+            {
+                int v = it.first;
+                int w = it.second;
+                if(curDist+w<dist[v]){
+                    dist[v] = curDist+w;
+                    pr.push({dist[v],v});
+                }
+            }
+        }
+    }
+
+
+    
+}
+int main() {
+  fast;
+  #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+  #endif
+  
+  int nodes,edges;
+  cin>>nodes>>edges;
+  for(int i=0;i<edges;i++)
+  {
+    int u,v,w;
+    //starting node u, ending node v, weight w
+    cin>>u>>v>>w;
+    adj[u].push_back({v,w});
+    adj[v].push_back({u,w});
+  }
+  diijkstra(0,nodes);
+  for(int i=0;i<nodes;i++)
+  {
+    cout<<dist[i]<<" ";
+  }
+  return 0;
+}
+
+// 5 7
+// 1 3 3
+// 1 2 2
+// 1 4 6
+// 2 0 6
+// 2 3 7
+// 0 4 3
+// 3 4 5

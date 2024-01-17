@@ -21,6 +21,8 @@ using namespace std;
 #define debug(x) cout<<#x<<" "<<x<<nl;
 const ll sz=2e5+7,Inf=1e9+7;
 ll dist[sz];
+
+
 vector<pair<int,int>>adj[sz];
 void diijkstra(int source,int node){
     priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pr;
